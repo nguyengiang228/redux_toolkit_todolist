@@ -1,10 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
-import { personSelector } from "../../redux/feature/reducer.slice";
-import { removePerson, deleteAll } from "../../redux/feature/reducer.slice";
+import {
+  deleteAllById,
+  deletePersonById,
+  personSelector,
+  updatePersonById,
+} from "../../redux/feature/user.slice";
+import { IPerson } from "../../interfaces/person";
 
-const HomeChild = () => {
+interface HomeChildProps {
+  nameValue: string;
+}
+
+const HomeChild = ({ nameValue }: HomeChildProps) => {
   const persons = useSelector(personSelector);
   const dispatch = useDispatch();
+
+  // console.log(persons);
+
+  const handleDeleteIdPerson = (id: number) => {
+    dispatch(deletePersonById({ id }));
+  };
+
+  const handleUpdatePerson = (id: number) => {
+    const editPerson: IPerson = {
+      id: id,
+      name: nameValue,
+    };
+    dispatch(updatePersonById(editPerson));
+  };
+  const handleDeleteAll = () => {
+    dispatch(deleteAllById());
+  };
 
   return (
     <>
@@ -12,13 +38,12 @@ const HomeChild = () => {
         <div key={index}>
           <div>
             {person.name}
-            <button onClick={() => dispatch(removePerson({ id: person.id }))}>
-              X
-            </button>
+            <button onClick={() => handleDeleteIdPerson(person.id)}>X</button>
+            <button onClick={() => handleUpdatePerson(person.id)}>EDIT</button>
           </div>
         </div>
       ))}
-      <button onClick={() => dispatch(deleteAll())}>DELETE ALL</button>
+      <button onClick={() => handleDeleteAll()}>DELETE ALL</button>
     </>
   );
 };
