@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteAllById,
+  deleteAll,
   deletePersonById,
   personSelector,
   updatePersonById,
@@ -29,7 +29,7 @@ const HomeChild = ({ nameValue }: HomeChildProps) => {
     dispatch(updatePersonById(editPerson));
   };
   const handleDeleteAll = () => {
-    dispatch(deleteAllById());
+    dispatch(deleteAll());
   };
 
   return (

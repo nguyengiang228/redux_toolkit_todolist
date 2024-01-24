@@ -39,13 +39,15 @@ export const userSlice = createSlice({
       state.persons = deletedPerson;
     },
 
-    deleteAllById: (state) => {
+    deleteAll: (state) => {
       state.persons = [];
     },
   },
 });
 
-export const { addPerson, updatePersonById, deletePersonById, deleteAllById } =
+export const { addPerson, updatePersonById, deletePersonById, deleteAll } =
   userSlice.actions;
+
+//xử lý Selector
 export const personSelector = (state: RootState) => state.user.persons;
 export default userSlice.reducer;
